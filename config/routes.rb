@@ -1,11 +1,17 @@
 Cacklist::Application.routes.draw do
 
-  get "pages/home"
-  #root :to => "home#index"
+  #get "pages/home"
+  root :to => "pages#home"
 
-  get "pages/contact"
+  match '/contact', :to => 'pages#contact'
+  #get "pages/contact"
+  match '/about', :to => 'pages#about'
+  #get "pages/about"
+  match '/help', :to => 'pages#help'
+  #get "pages/help"
+  match '/profile', :to => 'pages#profile'
+  #get "pages/profile"
 
-  get "pages/about"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
