@@ -1,15 +1,21 @@
 Cacklist::Application.routes.draw do
 
-  #get "pages/home"
+
   root :to => "pages#home"
+  #root_path => '/'
 
   match '/contact', :to => 'pages#contact'
-  #get "pages/contact"
   match '/about', :to => 'pages#about'
-  #get "pages/about"
   match '/help', :to => 'pages#help'
-  #get "pages/help"
   match '/profile', :to => 'pages#profile'
+
+  get "users/new"
+  match '/signup', :to => 'users#new'
+
+  #get "pages/home"
+  #get "pages/contact"
+  #get "pages/about"
+  #get "pages/help"
   #get "pages/profile"
 
 
