@@ -4,6 +4,17 @@ gem 'rails', '3.0.0.rc2'
 
 gem 'mysql'
 
+group :development do
+  gem 'rspec-rails', '2.0.0.beta.18'
+end
+
+group :test do
+  gem 'rspec', '2.0.0.beta.18'
+  gem 'annotate-models', '1.0.4'
+end
+
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -31,10 +42,4 @@ gem 'mysql'
 #   gem 'webrat'
 # end
 
-group :development do
-  gem 'rspec-rails', '2.0.0.beta.18'
-end
 
-group :test do
-  gem 'rspec', '2.0.0.beta.18'
-end
