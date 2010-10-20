@@ -12,6 +12,7 @@ Cacklist::Application.routes.draw do
   match '/profile', :to => 'pages#profile'
 
   match '/signup', :to => 'users#new'
+#  match '/users', :to => 'users#index'
 #  match '/edit', :to => 'users#edit'
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
