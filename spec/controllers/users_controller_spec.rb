@@ -74,6 +74,29 @@ describe UsersController do
       end
     end
 
+
+    describe "for non-admin users" do
+      it "should not display the delete link" do
+	get :index
+	response.should_not have_selector("a", :content => "delete")
+      end
+    end
+
+    describe "for admin users" do
+
+      before(:each) do
+	admin = Factory(:user, :email => "admin@example.com", :admin => true)
+	test_sign_in(admin)
+      end
+
+      it "should display the delete link" do
+	get :index
+	response.should have_selector("a", :content => "delete")
+      end
+      
+    end
+   
+
     describe "for signed-in users" do
 
       before(:each) do
@@ -323,6 +346,13 @@ describe UsersController do
 	admin = Factory(:user, :email => "admin@example.com", :admin => true)
 	test_sign_in(admin)
       end
+
+      it "should not destroy admin user" do
+        @user = Factory(:user, :email => "admin1@example.com", :admin => true)
+        delete :destroy, :id => @user
+	flash[:error].should =~ /delete yourself/i
+      end
+	
 
       it "should destroy the user" do
 	lambda do
