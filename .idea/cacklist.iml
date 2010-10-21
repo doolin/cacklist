@@ -24,6 +24,12 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="faker" version="0.3.1" bound="EQUAL" git="false" doRequire="true" />
+      </requirement>
+      <source from="Gemfile" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="gravatar_image_tag" version="0.1.0" bound="EQUAL" git="false" doRequire="true" />
       </requirement>
       <source from="Gemfile" />
@@ -49,6 +55,12 @@
     <requirement>
       <requirement>
         <dependency name="rspec-rails" version="2.0.0.beta.18" bound="EQUAL" git="false" doRequire="true" />
+      </requirement>
+      <source from="Gemfile" />
+    </requirement>
+    <requirement>
+      <requirement>
+        <dependency name="will_paginate" version="3.0.pre2" bound="EQUAL" git="false" doRequire="true" />
       </requirement>
       <source from="Gemfile" />
     </requirement>
@@ -90,6 +102,7 @@
     <orderEntry type="library" scope="PROVIDED" name="[gem] annotate-models (v1.0.4, /Users/daviddoolin/.rvm/gems/ree-1.8.7-2010.02/gems/annotate-models-1.0.4)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] rspec-rails (v1.3.2, /Users/daviddoolin/.rvm/gems/ree-1.8.7-2010.02/gems/rspec-rails-1.3.2)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] rspec (v1.3.0, /Users/daviddoolin/.rvm/gems/ree-1.8.7-2010.02/gems/rspec-1.3.0)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] faker (v0.3.1, /Users/daviddoolin/.rvm/gems/ree-1.8.7-2010.02/gems/faker-0.3.1)" level="application" />
   </component>
 </module>
 
