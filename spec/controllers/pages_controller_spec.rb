@@ -11,7 +11,6 @@ describe PagesController do
 
   describe "GET 'home'" do
 
-
     describe "for non-signed in users" do
 
       it "should be successful" do
@@ -68,6 +67,34 @@ describe PagesController do
 				      :content => "Next")
       end
     end
+
+
+    describe "sidebar behavior" do
+
+      it "should display singular with one micropost" do
+	@user = Factory(:user)
+	test_sign_in(@user)
+        @micropost = Factory(:micropost, :user => @user)
+	get :home
+	response.should have_selector("td", :class => "sidebar round",
+				      :content => "micropost")
+      end
+
+      it "should pluralize with more than one micropost" do
+	@user = Factory(:user)
+	test_sign_in(@user)
+        @micropost = Factory(:micropost, :user => @user)
+	second = Factory(:micropost, :user => @user)
+	@microposts = [@micropost, second]
+	get :home
+	response.should have_selector("td", :class => "sidebar round",
+				      :content => "microposts")
+      end
+
+    end
+
+      
+
 
   end
 
