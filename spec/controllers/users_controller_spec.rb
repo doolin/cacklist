@@ -44,6 +44,13 @@ describe UsersController do
       response.should have_selector("span.content", :content => mp2.content)
     end
 
+    it "should not show another user's delete link" do
+      user2 = Factory(:user, :email => "blah@blah.com")
+      mp = Factory(:micropost, :user => user2)
+      get :show, :id => @user
+      response.should_not have_selector("a", :content => "delete")
+    end
+
   end
 
   describe "GET 'edit'" do
@@ -109,7 +116,7 @@ describe UsersController do
 
       before(:each) do
 	@user = test_sign_in(Factory(:user))
-	second = Factory(:user, :email => "another@example.cpm")
+	second = Factory(:user, :email => "another@example.com")
 	third = Factory(:user, :email => "another@example.net")
 	@users = [@user, second, third]
 	30.times do
