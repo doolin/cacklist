@@ -11,30 +11,32 @@ describe PagesController do
 
   describe "GET 'home'" do
 
-    describe "for non-signed in users" do
+    describe "when not signed in" do
+
+      before(:each) do
+	get :home
+      end
 
       it "should be successful" do
-	get 'home'
 	response.should be_success
       end
 
 
       it "should have the right title" do
-	get 'home'
 	response.should have_selector("title",
 				      :content => @base_title + " | Home")
       end
 
       it "should have signup button" do
-	get :home
 	response.should have_selector("a", :href => "/signup",
 				      :content => "Sign up now!")
       end
 
     end
 
-    describe "for signed-in users" do
+    describe "when signed in" do
 
+# The micropost code comes from one of the exercises.
       before(:each) do
 	@user = Factory(:user)
 	test_sign_in(@user)
@@ -45,6 +47,8 @@ describe PagesController do
 	45.times do
 	  @microposts << Factory(:micropost, :user => @user)
 	end
+        other_user = Factory(:user, :email => Factory.next(:email))
+        other_user.follow!(@user)
       end
 
       it "should have a sidebar" do
@@ -66,6 +70,15 @@ describe PagesController do
 	response.should have_selector("a", :href => "/?page=2",
 				      :content => "Next")
       end
+
+      it "should have the right follower/following counts" do
+	get :home
+	response.should have_selector("a", :href => following_user_path(@user),
+				      :content => "0 following")
+	response.should have_selector("a", :href => followers_user_path(@user),
+				      :content => "1 follower")
+      end
+
     end
 
 
