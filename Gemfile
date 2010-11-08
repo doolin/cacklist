@@ -17,7 +17,9 @@ group :test do
   gem 'faker', '0.3.1'
 end
 
-
+group :production do
+  gem 'pg'
+end
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
