@@ -64,7 +64,8 @@ a.signup_button {
 }
 
 body {
-  background: #cff;
+  /* background: #cff; */
+  background-image: url('./images/camo.png');
 }
 
 header {
