@@ -49,7 +49,7 @@ describe MicropostsController do
 
     it "should create a micropost" do
       lambda do
-	post :create, :micropost => @attr
+        post :create, :micropost => @attr
       end.should change(Micropost, :count).by(1)
     end
 
