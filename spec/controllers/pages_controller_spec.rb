@@ -14,22 +14,20 @@ describe PagesController do
     describe "when not signed in" do
 
       before(:each) do
-	get :home
+        get :home
       end
 
       it "should be successful" do
-	response.should be_success
+        response.should be_success
       end
 
 
       it "should have the right title" do
-	response.should have_selector("title",
-				      :content => @base_title + " | Home")
+        response.should have_selector("title", :content => @base_title + " | Home")
       end
 
       it "should have signup button" do
-	response.should have_selector("a", :href => "/signup",
-				      :content => "Sign up now!")
+        response.should have_selector("a", :href => "/signup", :content => "Sign up now!")
       end
 
     end
