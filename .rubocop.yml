@@ -336,17 +336,6 @@ Style/SpaceInsideBlockBraces:
   Exclude:
     - 'spec/spec_helper.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SupportedStylesForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Style/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'app/models/user.rb'
-    - 'spec/controllers/users_controller_spec.rb'
-    - 'spec/models/micropost_spec.rb'
-
 # Offense count: 454
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.

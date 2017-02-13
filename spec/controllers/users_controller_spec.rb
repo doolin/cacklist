@@ -4,9 +4,7 @@ describe UsersController do
 
   render_views
 
-
   describe "GET 'show'" do
-    
     before(:each) do
       @user = Factory(:user)
     end
@@ -83,30 +81,30 @@ describe UsersController do
 
     describe "for non-signed-in users" do
       it "should deny access" do
-	get :index
-	response.should redirect_to(signin_path)
-	flash[:notice].should =~ /sign in/i
+  get :index
+  response.should redirect_to(signin_path)
+  flash[:notice].should =~ /sign in/i
       end
     end
 
 
     describe "for non-admin users" do
       it "should not display the delete link" do
-	get :index
-	response.should_not have_selector("a", :content => "delete")
+  get :index
+  response.should_not have_selector("a", :content => "delete")
       end
     end
 
     describe "for admin users" do
 
       before(:each) do
-	admin = Factory(:user, :email => "admin@example.com", :admin => true)
-	test_sign_in(admin)
+  admin = Factory(:user, :email => "admin@example.com", :admin => true)
+  test_sign_in(admin)
       end
 
       it "should display the delete link" do
-	get :index
-	response.should have_selector("a", :content => "delete")
+  get :index
+  response.should have_selector("a", :content => "delete")
       end
       
     end
@@ -115,40 +113,40 @@ describe UsersController do
     describe "for signed-in users" do
 
       before(:each) do
-	@user = test_sign_in(Factory(:user))
-	second = Factory(:user, :email => "another@example.com")
-	third = Factory(:user, :email => "another@example.net")
-	@users = [@user, second, third]
-	30.times do
-	  @users << Factory(:user, :email => Factory.next(:email))
-	end
+  @user = test_sign_in(Factory(:user))
+  second = Factory(:user, :email => "another@example.com")
+  third = Factory(:user, :email => "another@example.net")
+  @users = [@user, second, third]
+  30.times do
+    @users << Factory(:user, :email => Factory.next(:email))
+  end
       end
 
       it "should be successful" do
-	get :index
-	response.should be_success
+  get :index
+  response.should be_success
       end
 
       it "should have the right title" do
-	get :index
-	response.should have_selector("title", :content => "All users")
+  get :index
+  response.should have_selector("title", :content => "All users")
       end
 
       it "should have an element for each user" do
-	get :index
-	@users[0..2].each do |user|
-	  response.should have_selector("li", :content => user.name)
-	end
+  get :index
+  @users[0..2].each do |user|
+    response.should have_selector("li", :content => user.name)
+  end
       end
 
       it "should paginate users" do
-	get :index
-	response.should have_selector("div.pagination")
-	response.should have_selector("span.disabled", :content => "Previous")
-	response.should have_selector("a", :href => "/users?page=2",
-				      :content => "2")
-	response.should have_selector("a", :href => "/users?page=2",
-				      :content => "Next")
+  get :index
+  response.should have_selector("div.pagination")
+  response.should have_selector("span.disabled", :content => "Previous")
+  response.should have_selector("a", :href => "/users?page=2",
+              :content => "2")
+  response.should have_selector("a", :href => "/users?page=2",
+              :content => "Next")
       end
     end
   end
@@ -193,24 +191,24 @@ describe UsersController do
     describe "failure" do
 
       before(:each) do
-	@attr = { :name => "", :email => "", :password => "",
-	  :password_confirmation => ""}
+  @attr = { :name => "", :email => "", :password => "",
+    :password_confirmation => "" }
       end
 
       it "should not create a user" do
-	lambda do
-	  post :create, :user => @attr
-	end.should_not change(User, :count)
+  lambda do
+    post :create, :user => @attr
+  end.should_not change(User, :count)
       end
 
       it "should have the right title" do
-	post :create, :user => @attr
-	response.should have_selector("title", :content => "Sign up")
+  post :create, :user => @attr
+  response.should have_selector("title", :content => "Sign up")
       end
 
       it "should render the 'new' page" do
         post :create, :user => @attr
-	response.should render_template('new')
+  response.should render_template('new')
       end
     end
 
@@ -218,19 +216,19 @@ describe UsersController do
     describe "success" do
 
       before(:each) do
-	@attr = { :name => "New User", :email => "user@foo.com",
-	  :password => "foobar", :password_confirmation => "foobar" }
+  @attr = { :name => "New User", :email => "user@foo.com",
+    :password => "foobar", :password_confirmation => "foobar" }
       end
 
       it "should create a user" do
-	lambda do
-	  post :create, :user => @attr
+  lambda do
+    post :create, :user => @attr
         end.should change(User, :count).by(1)
       end
 
       it "should redirect to the user show page" do
-	post :create, :user => @attr
-	response.should redirect_to(user_path(assigns(:user)))
+  post :create, :user => @attr
+  response.should redirect_to(user_path(assigns(:user)))
       end
 
       it "should have a welcome message" do
@@ -239,8 +237,8 @@ describe UsersController do
       end
 
       it "should sign the user in" do
-	post :create, :user => @attr
-	controller.should be_signed_in
+  post :create, :user => @attr
+  controller.should be_signed_in
       end
     end
   end
@@ -273,7 +271,7 @@ describe UsersController do
 
       before(:each) do
         @attr = { :name => "New name", :email => "new@email.com", :password => "foobar",
-        :password_confirmation => "foobar"}
+        :password_confirmation => "foobar" }
       end
 
       it "should change the users attributes" do
@@ -342,42 +340,41 @@ describe UsersController do
 
     describe "as a non-signed-in user" do
       it "should deny access" do
-	delete :destroy, :id => @user
-	response.should redirect_to(signin_path)
+  delete :destroy, :id => @user
+  response.should redirect_to(signin_path)
       end
     end
 
     describe "as a non-admin user" do
       it "should protect the page" do
-	test_sign_in(@user)
-	delete :destroy, :id => @user
-	response.should redirect_to(root_path)
+  test_sign_in(@user)
+  delete :destroy, :id => @user
+  response.should redirect_to(root_path)
       end
     end
 
     describe "as an admin user" do
 
       before(:each) do
-	admin = Factory(:user, :email => "admin@example.com", :admin => true)
-	test_sign_in(admin)
+  admin = Factory(:user, :email => "admin@example.com", :admin => true)
+  test_sign_in(admin)
       end
 
       it "should not destroy admin user" do
         @user = Factory(:user, :email => "admin1@example.com", :admin => true)
         delete :destroy, :id => @user
-	flash[:error].should =~ /delete yourself/i
+  flash[:error].should =~ /delete yourself/i
       end
-	
 
       it "should destroy the user" do
-	lambda do
-	  delete :destroy, :id => @user
-	end.should change(User, :count).by(-1)
+  lambda do
+    delete :destroy, :id => @user
+  end.should change(User, :count).by(-1)
       end
 
       it "should redirect to the users page" do
-	delete :destroy, :id => @user
-	response.should redirect_to(users_path)
+  delete :destroy, :id => @user
+  response.should redirect_to(users_path)
       end
     end
   end
@@ -388,34 +385,34 @@ describe UsersController do
     describe "when not signed in" do
 
       it "should protect 'following'" do
-	get :following, :id => 1
-	response.should redirect_to(signin_path)
+  get :following, :id => 1
+  response.should redirect_to(signin_path)
       end
 
       it "should protect 'followers'" do
-	get :followers, :id => 1
-	response.should redirect_to(signin_path)
+  get :followers, :id => 1
+  response.should redirect_to(signin_path)
       end
     end
 
     describe "when signed in" do
 
       before(:each) do
-	@user = test_sign_in(Factory(:user))
-	@other_user = Factory(:user, :email => Factory.next(:email))
-	@user.follow!(@other_user)
+  @user = test_sign_in(Factory(:user))
+  @other_user = Factory(:user, :email => Factory.next(:email))
+  @user.follow!(@other_user)
       end
 
       it "should show user following" do
-	get :following, :id => @user
-	response.should have_selector("a", :href => user_path(@other_user),
-				      :content => @other_user.name)
+  get :following, :id => @user
+  response.should have_selector("a", :href => user_path(@other_user),
+              :content => @other_user.name)
       end
-	
+
       it "should show user followers" do
-	get :followers, :id => @other_user
-	response.should have_selector("a", :href => user_path(@user),
-				      :content => @user.name)
+  get :followers, :id => @other_user
+  response.should have_selector("a", :href => user_path(@user),
+              :content => @user.name)
       end
     end
   end
