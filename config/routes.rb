@@ -7,7 +7,7 @@ Cacklist::Application.routes.draw do
   end
 
 
-  root :to => "pages#home"
+  root :to => 'pages#home'
   #root_path => '/'
 
   resources :sessions, :only => [:new, :create, :destroy]

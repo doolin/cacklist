@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe RelationshipsController do
 
-  describe "access control" do
+  describe 'access control' do
 
-    it "should require signin for create" do
+    it 'should require signin for create' do
       post :create
       response.should redirect_to(signin_path)
     end
 
-    it "should require signin for destroy" do
+    it 'should require signin for destroy' do
       delete :destroy, :id => 1
       response.should redirect_to(signin_path)
     end
@@ -22,7 +22,7 @@ describe RelationshipsController do
       @followed = Factory(:user, :email => Factory.next(:email))
     end
 
-    it "should create a relationship" do
+    it 'should create a relationship' do
       lambda do
 	post :create, :relationship => { :followed_id => @followed }
 	response.should be_redirect
@@ -31,7 +31,7 @@ describe RelationshipsController do
 
 #Broken, not sure why
 #=begin
-    xit "should create a relationship using Ajax" do
+    xit 'should create a relationship using Ajax' do
       xhr :post, :create, :relationship => { :followed_id => @followed }
       lambda do
 	response.should be_success
@@ -49,14 +49,14 @@ describe RelationshipsController do
       @relationship = @user.relationships.find_by_followed_id(@followed)
     end
 
-    it "should destroy a relationship" do
+    it 'should destroy a relationship' do
       lambda do
 	delete :destroy, :id => @relationship
 	response.should be_redirect
       end.should change(Relationship, :count).by(-1)
     end
 
-    it "should destroy a relationship using Ajax" do
+    it 'should destroy a relationship using Ajax' do
       lambda do
         xhr :delete, :destroy, :id => @relationship
         response.should be_success

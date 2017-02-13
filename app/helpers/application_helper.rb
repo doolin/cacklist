@@ -2,7 +2,7 @@ module ApplicationHelper
 
   # Return a title on a per-page basis.
   def title
-    base_title = "Cacklist"
+    base_title = 'Cacklist'
     if @title.nil?
       base_title
     else
@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def logo
-    image_tag("bushcover.png", :alt => "Cacklist", :class => "round")
+    image_tag('bushcover.png', :alt => 'Cacklist', :class => 'round')
   end  
 
 

@@ -336,13 +336,6 @@ Style/SpaceInsideBlockBraces:
   Exclude:
     - 'spec/spec_helper.rb'
 
-# Offense count: 454
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
-
 # Offense count: 209
 # Cop supports --auto-correct.
 Style/Tab:

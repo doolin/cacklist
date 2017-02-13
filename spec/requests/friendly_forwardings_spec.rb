@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "FriendlyForwardings" do
+describe 'FriendlyForwardings' do
 
-  it "should forward to the required page after signin" do
+  it 'should forward to the required page after signin' do
     user = Factory(:user)
     visit edit_user_path(user)
     fill_in :email, :with => user.email
