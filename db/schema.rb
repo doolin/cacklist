@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -19,18 +20,12 @@ ActiveRecord::Schema.define(:version => 20101022024754) do
     t.datetime "updated_at"
   end
 
-  add_index "microposts", ["user_id"], :name => "index_microposts_on_user_id"
-
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
-  add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
-  add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -41,7 +36,5 @@ ActiveRecord::Schema.define(:version => 20101022024754) do
     t.string   "salt"
     t.boolean  "admin",              :default => false
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end
