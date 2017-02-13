@@ -13,9 +13,9 @@ end
 
 def make_users
     admin = User.create!(:name => 'Example user',
-		         :email => 'example@railstutorial.org',
-		         :password => 'foobar',
-		         :password_confirmation => 'foobar')
+             :email => 'example@railstutorial.org',
+             :password => 'foobar',
+             :password_confirmation => 'foobar')
     admin.toggle!(:admin)
     
     99.times do |n|
@@ -23,9 +23,9 @@ def make_users
       email = "example-#{n+1}@railstutorial.org"
       password = 'foobar'
       User.create!(:name => name,
-		   :email => email,
-		   :password => password,
-		   :password_confirmation => password)
+       :email => email,
+       :password => password,
+       :password_confirmation => password)
   end
 end
 
@@ -46,4 +46,4 @@ def make_relationships
   following.each { |followed| user.follow!(followed) }
   followers.each { |follower| follower.follow!(user) }
 end
-		 
+     

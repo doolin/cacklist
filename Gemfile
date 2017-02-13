@@ -10,7 +10,8 @@ gem 'json', '1.7.7'
 group :development do
   gem 'rubocop'
   gem 'rspec-rails'
-  gem 'webrat'
+  # gem 'webrat'
+  gem 'capybara'
 end
 
 group :test do
