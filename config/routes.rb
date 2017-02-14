@@ -6,37 +6,32 @@ Cacklist::Application.routes.draw do
     end
   end
 
+  root to: 'pages#home'
+  # root_path => '/'
 
-  root :to => 'pages#home'
-  #root_path => '/'
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
-  resources :sessions, :only => [:new, :create, :destroy]
-  resources :microposts, :only => [:create, :destroy]
-  resources :relationships, :only => [:create, :destroy]
+  match '/contact', to: 'pages#contact'
+  match '/about', to: 'pages#about'
+  match '/help', to: 'pages#help'
+  match '/profile', to: 'pages#profile'
 
+  match '/signup', to: 'users#new'
+  #  match '/users', :to => 'users#index'
+  #  match '/edit', :to => 'users#edit'
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy'
 
+  # get "sessions/new"
 
-  match '/contact', :to => 'pages#contact'
-  match '/about', :to => 'pages#about'
-  match '/help', :to => 'pages#help'
-  match '/profile', :to => 'pages#profile'
-
-  match '/signup', :to => 'users#new'
-#  match '/users', :to => 'users#index'
-#  match '/edit', :to => 'users#edit'
-  match '/signin', :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
-  
-
-  #get "sessions/new"
-
-  #get "users/new"
-  #get "pages/home"
-  #get "pages/contact"
-  #get "pages/about"
-  #get "pages/help"
-  #get "pages/profile"
-
+  # get "users/new"
+  # get "pages/home"
+  # get "pages/contact"
+  # get "pages/about"
+  # get "pages/help"
+  # get "pages/profile"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

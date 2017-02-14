@@ -1,17 +1,16 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :except => [:show, :new, :create]
-  before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => [:destroy]
-
+  before_filter :authenticate, except: [:show, :new, :create]
+  before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user,   only: [:destroy]
 
   def index
     @title = 'All users'
-    @users = User.paginate(:page => params[:page])
+    @users = User.paginate(page: params[:page])
   end
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
+    @microposts = @user.microposts.paginate(page: params[:page])
     @title = @user.name
   end
 
@@ -22,7 +21,6 @@ class UsersController < ApplicationController
   end
 
   def create
-
     redirect_to(root_path) if signed_in?
 
     @user = User.new(params[:user])
@@ -40,7 +38,7 @@ class UsersController < ApplicationController
 
   def destroy
     u = User.find(params[:id])
-    if u.admin 
+    if u.admin
       flash[:error] = "Can't delete yourself!"
     else
       u.destroy
@@ -50,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    #@user = User.find(params[:id])
+    # @user = User.find(params[:id])
     @title = 'Edit user'
   end
 
@@ -65,18 +63,17 @@ class UsersController < ApplicationController
     end
   end
 
-
   def following
     @title = 'Following'
     @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page])
+    @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
     @title = 'Followers'
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(:page => params[:page])
+    @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
 

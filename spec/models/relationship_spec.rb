@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 describe Relationship do
-
-
   before(:each) do
     @follower = Factory(:user)
-    @followed = Factory(:user, :email => Factory.next(:email))
+    @followed = Factory(:user, email: Factory.next(:email))
 
-    @relationship = @follower.relationships.build(:followed_id => @followed.id)
+    @relationship = @follower.relationships.build(followed_id: @followed.id)
   end
 
   it 'should create a new instance given valid attributes' do
@@ -15,7 +13,6 @@ describe Relationship do
   end
 
   describe 'follow methods' do
-
     before(:each) do
       @relationship.save
     end
@@ -38,7 +35,6 @@ describe Relationship do
   end
 
   describe 'validations' do
-
     it 'should require a follower_id' do
       @relationship.follower_id = nil
       @relationship.should_not be_valid
@@ -51,17 +47,16 @@ describe Relationship do
   end
 
   describe 'relationships' do
-
     before(:each) do
-          @attr = {
-      :name => 'Example User',
-      :email => 'user@example.com',
-      :password => 'foobar',
-      :password_confirmation => 'foobar'
-    }
+      @attr = {
+  name: 'Example User',
+  email: 'user@example.com',
+  password: 'foobar',
+  password_confirmation: 'foobar'
+}
 
       @user = User.create!(@attr)
-      @followed = Factory(:user, :email => Factory.next(:email))
+      @followed = Factory(:user, email: Factory.next(:email))
     end
 
     it 'should have a relationships method' do
@@ -112,7 +107,5 @@ describe Relationship do
       @user.follow!(@followed)
       @followed.followers.should include(@user)
     end
-
   end
-
 end

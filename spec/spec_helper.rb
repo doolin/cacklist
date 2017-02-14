@@ -6,7 +6,7 @@ require 'rspec/rails'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   # == Mock Framework
@@ -21,7 +21,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   def test_sign_in(user)
-      controller.sign_in(user)
+    controller.sign_in(user)
   end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
