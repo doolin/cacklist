@@ -23,6 +23,9 @@ RSpec.configure do |config|
   end
 =end
 
+  config.include FactoryGirl::Syntax::Methods
+
+
   # == Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

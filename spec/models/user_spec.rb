@@ -46,11 +46,11 @@ describe User do
     end
   end
 
-  it 'should reject duplicate email addresses' do
-    # Put a user with given email address into the database.
-    User.create!(@attr)
-    user_with_duplicate_email = User.new(@attr)
-    user_with_duplicate_email.should_not be_valid
+  it 'rejects duplicate email addresses' do
+    User.create(@attr)
+    expect do
+      User.create!(@attr)
+    end.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should reject email addresses identical up to case' do
@@ -144,8 +144,8 @@ describe User do
   describe 'micropost associations' do
     before(:each) do
       @user = User.create(@attr)
-      @mp1 = Factory(:micropost, user: @user, created_at: 1.day.ago)
-      @mp2 = Factory(:micropost, user: @user, created_at: 1.hour.ago)
+      @mp1 = FactoryGirl.create(:micropost, user: @user, created_at: 1.day.ago)
+      @mp2 = FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
     end
 
     it 'should have a microposts attribute' do
@@ -174,14 +174,14 @@ describe User do
       end
 
       it "should not include a different user's microposts" do
-        mp3 = Factory(:micropost,
-                      user: Factory(:user, email: Factory.next(:email)))
+        mp3 = FactoryGirl.create(:micropost,
+                                 user: FactoryGirl.create(:user, email: FactoryGirl.next(:email)))
         @user.feed.include?(mp3).should be_false
       end
 
       it 'should include the microposts of followed users' do
-        followed = Factory(:user, email: Factory.next(:email))
-        mp3 = Factory(:micropost, user: followed)
+        followed = FactoryGirl(:user, email: FactoryGirl.next(:email))
+        mp3 = FactoryGirl(:micropost, user: followed)
         @user.follow!(followed)
         @user.feed.should include(mp3)
       end
@@ -191,7 +191,7 @@ describe User do
   describe 'relationships' do
     before(:each) do
       @user = User.create!(@attr)
-      @followed = Factory(:user)
+      @followed = FactoryGirl(:user)
     end
 
     it 'should have a relationships method' do
