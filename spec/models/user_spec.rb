@@ -62,7 +62,9 @@ describe User do
 
   describe 'password validations' do
     it 'should require a password' do
-      User.new(@attr.merge(password: '', password_confirmation: '')).should_not be_valid
+      expect do
+        create :user, password: '', password_confirmation: ''
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
 
     it 'should require a matching password confirmation' do

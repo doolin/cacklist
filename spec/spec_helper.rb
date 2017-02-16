@@ -25,6 +25,8 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
+  # TODO: remove this after getting to Rails 5+
+  config.infer_spec_type_from_file_location!
 
   # == Mock Framework
   #
