@@ -192,8 +192,8 @@ describe User do
 
   describe 'relationships' do
     before(:each) do
-      @user = User.create!(@attr)
-      @followed = FactoryGirl(:user)
+      @user = create :user
+      @followed = create :user
     end
 
     it 'should have a relationships method' do
