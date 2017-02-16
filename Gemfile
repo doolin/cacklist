@@ -5,7 +5,7 @@ gem 'rails', '3.1.0'
 gem 'pg'
 gem 'mysql'
 gem 'gravatar_image_tag', '0.1.0'
-gem 'will_paginate', '3.0.pre2'
+gem 'will_paginate', '3.0.2'
 gem 'json' #, '1.7.7'
 
 group :development do
