@@ -1,31 +1,21 @@
-# This file is copied to ~/spec when you run 'ruby script/generate rspec'
-# from the project root directory.
+require 'simplecov'
+SimpleCov.start 'rails'
+
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require_relative '../config/environment'
 require 'rspec/rails'
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').each { |f| require f }
 
 RSpec.configure do |config|
-  # == Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
-  config.mock_with :rspec
+  config.fixture_paths = [Rails.root.join('spec/fixtures')]
+  config.use_transactional_fixtures = true
+  config.infer_spec_type_from_file_location!
+  config.filter_rails_from_backtrace!
 
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.include FactoryBot::Syntax::Methods
 
   def test_sign_in(user)
     controller.sign_in(user)
   end
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, comment the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
 end

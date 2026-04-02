@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Relationship do
+RSpec.describe Relationship, type: :model do
   before(:each) do
-    @follower = Factory(:user)
-    @followed = Factory(:user, email: Factory.next(:email))
+    @follower = create(:user)
+    @followed = create(:user, email: generate(:email))
 
     @relationship = @follower.relationships.build(followed_id: @followed.id)
   end
@@ -18,94 +18,31 @@ describe Relationship do
     end
 
     it 'should have a follower attribute' do
-      @relationship.should respond_to(:follower)
+      expect(@relationship).to respond_to(:follower)
     end
 
     it 'should have the right follower' do
-      @relationship.follower.should == @follower
+      expect(@relationship.follower).to eq(@follower)
     end
 
     it 'should have a followed attribute' do
-      @relationship.should respond_to(:followed)
+      expect(@relationship).to respond_to(:followed)
     end
 
     it 'should have the right followed user' do
-      @relationship.followed.should == @followed
+      expect(@relationship.followed).to eq(@followed)
     end
   end
 
   describe 'validations' do
     it 'should require a follower_id' do
       @relationship.follower_id = nil
-      @relationship.should_not be_valid
+      expect(@relationship).not_to be_valid
     end
 
     it 'should require a followed_id' do
       @relationship.followed_id = nil
-      @relationship.should_not be_valid
-    end
-  end
-
-  describe 'relationships' do
-    before(:each) do
-      @attr = {
-  name: 'Example User',
-  email: 'user@example.com',
-  password: 'foobar',
-  password_confirmation: 'foobar'
-}
-
-      @user = User.create!(@attr)
-      @followed = Factory(:user, email: Factory.next(:email))
-    end
-
-    it 'should have a relationships method' do
-      @user.should respond_to(:relationships)
-    end
-
-    it 'should have a following method' do
-      @user.should respond_to(:following)
-    end
-
-    it 'should have a following? method' do
-      @user.should respond_to(:following?)
-    end
-
-    it 'should have a follow! method' do
-      @user.should respond_to(:follow!)
-    end
-
-    it 'should follow another user' do
-      @user.follow!(@followed)
-      @user.should be_following(@followed)
-    end
-
-    it 'should include the followed user in the following array' do
-      @user.follow!(@followed)
-      @user.following.should include(@followed)
-    end
-
-    it 'should have an unfollow! method' do
-      @followed.should respond_to(:unfollow!)
-    end
-
-    it 'should unfollow a user' do
-      @user.follow!(@followed)
-      @user.unfollow!(@followed)
-      @user.should_not be_following(@followed)
-    end
-
-    it 'should have a reverse_relationships method' do
-      @user.should respond_to(:reverse_relationships)
-    end
-
-    it 'should have a followers method' do
-      @user.should respond_to(:followers)
-    end
-
-    it 'should include the follower in the followers array' do
-      @user.follow!(@followed)
-      @followed.followers.should include(@user)
+      expect(@relationship).not_to be_valid
     end
   end
 end

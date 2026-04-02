@@ -1,25 +1,33 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '3.0.20'
+ruby '3.3.6'
 
-gem 'mysql'
-gem 'gravatar_image_tag', '0.1.0'
-gem 'will_paginate', '3.0.pre2'
-gem 'json', '1.7.7'
+gem 'rails', '~> 7.2.0'
+
+gem 'bcrypt', '~> 3.1'
+gem 'pg', '~> 1.5'
+gem 'puma', '~> 6.0'
+gem 'sprockets-rails'
+gem 'will_paginate', '~> 4.0'
+
+group :development, :test do
+  gem 'debug'
+  gem 'factory_bot_rails', '~> 6.0'
+  gem 'faker', '~> 3.0'
+  gem 'rspec-rails', '~> 6.0'
+end
 
 group :development do
-  gem 'rubocop'
-  gem 'rspec-rails'
-  # gem 'webrat'
-  gem 'capybara'
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
+  gem 'rubocop', '~> 1.0', require: false
+  gem 'rubocop-rails', require: false
+  gem 'web-console'
 end
 
 group :test do
-  gem 'rspec'
-  gem 'factory_girl_rails', '1.0'
-  gem 'faker', '0.3.1'
-end
-
-group :production do
-  gem 'pg'
+  gem 'capybara', '~> 3.0'
+  gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
+  gem 'simplecov', require: false
 end
