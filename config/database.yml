@@ -1,19 +1,21 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  username: postgres
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
 
 development:
   <<: *default
   database: cacklist_development
+  username: postgres
 
 test:
   <<: *default
   database: cacklist_test
+  username: postgres
 
 production:
   <<: *default
   database: cacklist_production
   username: <%= ENV.fetch('DATABASE_USERNAME', 'cacklist') %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

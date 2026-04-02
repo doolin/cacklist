@@ -1,4 +1,4 @@
-ActiveRecord::Schema[7.1].define(version: 2026_04_02_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_000001) do
   create_table 'microposts', force: :cascade do |t|
     t.string   'content'
     t.integer  'user_id'

@@ -22,6 +22,6 @@ class RelationshipsController < ApplicationController
   private
 
   def relationship_params
-    params.require(:relationship).permit(:followed_id)
+    params.expect(relationship: [:followed_id])
   end
 end
