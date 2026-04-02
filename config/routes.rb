@@ -13,16 +13,14 @@ Cacklist::Application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
-  match '/contact', to: 'pages#contact'
-  match '/about', to: 'pages#about'
-  match '/help', to: 'pages#help'
-  match '/profile', to: 'pages#profile'
+  get '/contact', to: 'pages#contact'
+  get '/about', to: 'pages#about'
+  get '/help', to: 'pages#help'
+  get '/profile', to: 'pages#profile'
 
-  match '/signup', to: 'users#new'
-  #  match '/users', :to => 'users#index'
-  #  match '/edit', :to => 'users#edit'
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'
+  get '/signup', to: 'users#new'
+  get '/signin', to: 'sessions#new'
+  delete '/signout', to: 'sessions#destroy'
 
   # get "sessions/new"
 
