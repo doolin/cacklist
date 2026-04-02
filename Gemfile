@@ -8,7 +8,6 @@ gem 'pg', '~> 1.5'
 gem 'puma', '~> 6.0'
 gem 'sprockets-rails'
 gem 'bcrypt', '~> 3.1'
-gem 'gravatar_image_tag'
 gem 'will_paginate', '~> 4.0'
 
 group :development, :test do
@@ -28,6 +27,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.0'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
 end

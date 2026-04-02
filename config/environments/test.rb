@@ -15,8 +15,4 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   config.action_mailer.delivery_method = :test
-
-  config.active_record.encryption_primary_key = 'test'
-  config.active_record.encryption_deterministic_key = 'test'
-  config.active_record.encryption_key_derivation_salt = 'test'
 end
