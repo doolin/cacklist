@@ -6,3 +6,4 @@ log/*.log
 tmp/**/*
 *~
 log/development.log
+coverage/
