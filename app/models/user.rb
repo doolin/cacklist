@@ -1,22 +1,4 @@
-# == Schema Information
-# Schema version: 20101007171449
-#
-# Table name: users
-#
-#  id         :integer(4)      not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
-# ETAOIN SHRDLU
-
-require 'digest'
-
 class User < ApplicationRecord
-  attr_accessor :password
-
   has_many :microposts, dependent: :destroy
 
   has_many :relationships, foreign_key: 'follower_id',
@@ -30,7 +12,9 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_relationships,
                        source: :follower
 
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  has_secure_password
+
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name,
             presence: true,
@@ -38,28 +22,40 @@ class User < ApplicationRecord
 
   validates :email,
             presence: true,
-            format: { with: email_regex },
+            format: { with: EMAIL_REGEX },
             uniqueness: { case_sensitive: false }
 
-  validates :password, presence: true,
-                       confirmation: true,
-                       length: { within: 6..40 }
+  validates :password, length: { within: 6..40 }, allow_nil: true
 
-  before_save :encrypt_password
-
-  def has_password?(submitted_password)
-    encrypted_password == encrypt(submitted_password)
-  end
-
-  def self.authenticate(email, submitted_password)
+  def self.authenticate(email, password)
     user = find_by(email: email)
-    return nil if user.nil?
-    return user if user.has_password?(submitted_password)
+    user&.authenticate(password) || nil
   end
 
-  def self.authenticate_with_salt(id, cookie_salt)
-    user = find_by(id: id)
-    user && user.salt == cookie_salt ? user : nil
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+
+  def authenticated?(remember_token)
+    return false if remember_digest.nil?
+
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  attr_accessor :remember_token
+
+  def self.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  def self.new_token
+    SecureRandom.urlsafe_base64
   end
 
   def following?(followed)
@@ -76,24 +72,5 @@ class User < ApplicationRecord
 
   def feed
     Micropost.from_users_followed_by(self)
-  end
-
-  private
-
-  def encrypt_password
-    self.salt = make_salt if new_record?
-    self.encrypted_password = encrypt(password)
-  end
-
-  def encrypt(string)
-    secure_hash("#{salt}--#{string}")
-  end
-
-  def make_salt
-    secure_hash("#{Time.now.utc}--#{password}")
-  end
-
-  def secure_hash(string)
-    Digest::SHA2.hexdigest(string)
   end
 end
