@@ -44,7 +44,7 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-      - run: bundle exec rake db:schema:load
+      - run: bundle exec rails db:schema:load
       - run: bundle exec rspec
 
   security:
@@ -57,10 +57,6 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
       - name: Bundle Audit
-        run: |
-          gem install bundler-audit
-          bundle-audit check --update
+        run: bundle exec bundle-audit check --update
       - name: Brakeman
-        run: |
-          gem install brakeman
-          brakeman --no-pager --exit-on-warn
+        run: bundle exec brakeman --no-pager
