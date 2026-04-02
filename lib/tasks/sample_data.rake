@@ -1,4 +1,3 @@
-
 require 'faker'
 
 namespace :db do
@@ -16,23 +15,23 @@ def make_users
                        email: 'example@railstutorial.org',
                        password: 'foobar',
                        password_confirmation: 'foobar')
-  admin.toggle!(:admin)
+  admin.update!(admin: true)
 
   99.times do |n|
-  name = Faker::Name.name
-  email = "example-#{n + 1}@railstutorial.org"
-  password = 'foobar'
-  User.create!(name: name,
-               email: email,
-               password: password,
-               password_confirmation: password)
-end
+    name = Faker::Name.name
+    email = "example-#{n + 1}@railstutorial.org"
+    password = 'foobar'
+    User.create!(name: name,
+                 email: email,
+                 password: password,
+                 password_confirmation: password)
+  end
 end
 
 def make_microposts
-  User.all(limit: 6).each do |user|
+  User.limit(6).find_each do |user|
     50.times do
-      content = Faker::Lorem.sentences(5)
+      content = Faker::Lorem.sentence(word_count: 5)
       user.microposts.create!(content: content)
     end
   end

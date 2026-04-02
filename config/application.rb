@@ -10,7 +10,7 @@ module Cacklist
 
     config.encoding = 'utf-8'
 
-    config.filter_parameters += [:password, :password_confirmation]
+    config.filter_parameters += %i[password password_confirmation]
 
     config.generators do |g|
       g.test_framework :rspec

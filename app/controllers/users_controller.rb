@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate, except: [:show, :new, :create]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :authenticate, except: %i[show new create]
+  before_action :correct_user, only: %i[edit update]
   before_action :admin_user,   only: [:destroy]
 
   def index
@@ -20,6 +20,11 @@ class UsersController < ApplicationController
     @title = 'Sign up'
   end
 
+  def edit
+    # @user = User.find(params[:id])
+    @title = 'Edit user'
+  end
+
   def create
     redirect_to(root_path) if signed_in?
 
@@ -36,22 +41,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    u = User.find(params[:id])
-    if u.admin
-      flash[:error] = "Can't delete yourself!"
-    else
-      u.destroy
-      flash[:success] = 'User destroyed.'
-    end
-    redirect_to users_path
-  end
-
-  def edit
-    # @user = User.find(params[:id])
-    @title = 'Edit user'
-  end
-
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
@@ -61,6 +50,17 @@ class UsersController < ApplicationController
       @title = 'Edit user'
       render 'edit'
     end
+  end
+
+  def destroy
+    u = User.find(params[:id])
+    if u.admin
+      flash[:error] = "Can't delete yourself!"
+    else
+      u.destroy
+      flash[:success] = 'User destroyed.'
+    end
+    redirect_to users_path
   end
 
   def following

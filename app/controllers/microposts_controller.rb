@@ -1,5 +1,5 @@
 class MicropostsController < ApplicationController
-  before_action :authenticate, only: [:create, :destroy]
+  before_action :authenticate, only: %i[create destroy]
   before_action :authorized_user, only: :destroy
 
   def create
