@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def create
     redirect_to(root_path) if signed_in?
 
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
       sign_in @user
       flash[:success] = 'Welcome to the sample app!'
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(params[:user])
+    if @user.update(user_params)
       flash[:success] = 'Profile updated'
       redirect_to @user
     else
@@ -86,5 +86,9 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to(root_path) unless current_user.admin?
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
