@@ -14,7 +14,7 @@
 
 require 'digest'
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   attr_accessor :password
 
   has_many :microposts, dependent: :destroy
