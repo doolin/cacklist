@@ -1,4 +1,4 @@
-class AddSaltToUsers < ActiveRecord::Migration
+class AddSaltToUsers < ActiveRecord::Migration[8.1]
   def self.up
     add_column :users, :salt, :string
   end

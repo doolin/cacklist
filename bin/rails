@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+cd "$(dirname "$0")/.."
+
+ruby_meets_gemfile() {
+  command -v ruby >/dev/null 2>&1 && ruby -e 'abort if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("3.3")' 2>/dev/null
+}
+
+if ! ruby_meets_gemfile; then
+  if [[ -s "${HOME}/.rvm/scripts/rvm" ]]; then
+    # shellcheck disable=SC1090
+    source "${HOME}/.rvm/scripts/rvm"
+  fi
+  if command -v rvm >/dev/null 2>&1; then
+    rvm use . >/dev/null 2>&1 || true
+  fi
+fi
+
+exec /usr/bin/env ruby -x "$0" "$@"
+#!ruby
+APP_PATH = File.expand_path("../config/application", __dir__)
+require_relative "../config/boot"
+require "rails/commands"
