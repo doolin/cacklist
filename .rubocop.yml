@@ -1,5 +1,14 @@
-require:
+plugins:
+  - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-factory_bot
+  - rubocop-capybara
+
+inherit_mode:
+  merge:
+    - Exclude
 
 AllCops:
   TargetRubyVersion: 3.3
@@ -50,4 +59,24 @@ Rails/InverseOf:
   Enabled: false
 
 Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+# RSpec: allow legacy Rails Tutorial-style controller specs (@request, @controller,
+# explicit model names, :type metadata) without rewriting the whole suite.
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpecRails/InferredSpecType:
+  Enabled: false
+
+RSpec/NoExpectationExample:
+  Enabled: false
+
+FactoryBot/AssociationStyle:
   Enabled: false

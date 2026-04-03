@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe 'Microposts', type: :request do
-  before(:each) do
+  before do
     @user = create(:user)
     post '/sessions', params: { session: { email: @user.email, password: @user.password } }
   end
 
   describe 'creation' do
     describe 'failure' do
-      it 'should not make a new micropost' do
+      it 'does not make a new micropost' do
         expect do
           post '/microposts', params: { micropost: { content: '' } }
         end.not_to change(Micropost, :count)
@@ -16,7 +16,7 @@ RSpec.describe 'Microposts', type: :request do
     end
 
     describe 'success' do
-      it 'should make a new micropost' do
+      it 'makes a new micropost' do
         content = 'Lorem ipsum dolor sit amet'
         expect do
           post '/microposts', params: { micropost: { content: content } }

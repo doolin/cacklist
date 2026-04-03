@@ -5,17 +5,17 @@ RSpec.describe PagesController, type: :controller do
 
   describe "GET 'home'" do
     describe 'when not signed in' do
-      before(:each) do
+      before do
         get :home
       end
 
-      it 'should be successful' do
+      it 'is successful' do
         expect(response).to be_successful
       end
     end
 
     describe 'when signed in' do
-      before(:each) do
+      before do
         @user = create(:user)
         test_sign_in(@user)
         create(:micropost, user: @user)
@@ -25,7 +25,7 @@ RSpec.describe PagesController, type: :controller do
         other_user.follow!(@user)
       end
 
-      it 'should be successful' do
+      it 'is successful' do
         get :home
         expect(response).to be_successful
       end
@@ -33,28 +33,28 @@ RSpec.describe PagesController, type: :controller do
   end
 
   describe "GET 'contact'" do
-    it 'should be successful' do
+    it 'is successful' do
       get 'contact'
       expect(response).to be_successful
     end
   end
 
   describe "GET 'about'" do
-    it 'should be successful' do
+    it 'is successful' do
       get 'about'
       expect(response).to be_successful
     end
   end
 
   describe "GET 'help'" do
-    it 'should be successful' do
+    it 'is successful' do
       get 'help'
       expect(response).to be_successful
     end
   end
 
   describe "GET 'profile'" do
-    it 'should be successful' do
+    it 'is successful' do
       get 'profile'
       expect(response).to be_successful
     end
