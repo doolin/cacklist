@@ -6,7 +6,7 @@ gem 'rails', '~> 8.1.0'
 
 gem 'bcrypt', '~> 3.1'
 gem 'pg', '~> 1.5'
-gem 'puma', '~> 6.0'
+gem 'puma', '~> 8.0'
 gem 'sprockets-rails'
 gem 'will_paginate', '~> 4.0'
 
