@@ -147,7 +147,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'has a flash message' do
         put :update, params: { id: @user, user: @attr }
-        expect(flash[:success]).to match(/updated/)
+        expect(flash[:success]).to include('updated')
       end
     end
   end
