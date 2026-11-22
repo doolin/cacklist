@@ -7,3 +7,4 @@ tmp/**/*
 *~
 log/development.log
 coverage/
+.claude/settings.local.json
